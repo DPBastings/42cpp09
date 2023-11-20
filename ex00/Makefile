@@ -7,13 +7,16 @@ HDR_DIR		:= ./include/
 SRC_FILES	:= main.cpp\
 			BitcoinExchange.cpp\
 			DatabaseLine.cpp\
+			Date.cpp\
 			Query.cpp\
 			parse_database.cpp\
+			parse_exception.cpp\
 			parse_query.cpp
 
 OBJ_FILES	:= $(patsubst %.cpp,%.o,$(SRC_FILES))
 HDR_FILES	:= BitcoinExchange.hpp\
 			DatabaseLine.hpp\
+			Date.hpp\
 			Query.hpp\
 			parse.hpp
 

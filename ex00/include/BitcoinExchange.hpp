@@ -9,7 +9,7 @@
 using Queries = std::vector<Query>;
 using Database = std::vector<DatabaseLine>;
 
-char const*	database_path = "./data.csv";
+constexpr char	database_path[] = "./data.csv";
 
 Queries		open_queries(char const* path);
 Database	open_database(char const* path = database_path);

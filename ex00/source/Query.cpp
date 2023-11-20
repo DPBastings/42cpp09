@@ -1,8 +1,6 @@
 #include "Query.hpp"
 
-#include <ctime>
-
-// Constructor
+// Constructors
 
 Query::Query():
 	_date(0),
@@ -17,12 +15,12 @@ Query::Query(Query const& that):
 	_value(that._value) {
 }
 
-Query::Query(std::time_t date, float value):
+Query::Query(Date date, float value):
 	_date(date),
 	_value(value) {
 }
 
-// Operator
+// Operators
 
 Query&
 Query::operator=(Query const&) {
@@ -31,7 +29,7 @@ Query::operator=(Query const&) {
 
 // Public methods
 
-std::time_t
+Date
 Query::date() const {
 	return (_date);
 }

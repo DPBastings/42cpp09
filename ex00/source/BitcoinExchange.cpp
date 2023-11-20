@@ -30,7 +30,7 @@ open_infile(char const* path) {
 	std::ifstream	infile;
 	infile.open(path);
 	if (infile.is_open() == false)
-		throw (std::ios_base::failure("Could not open file."));
+		throw (std::ios_base::failure("Couldn't open file."));
 	return (infile);
 }
 

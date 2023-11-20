@@ -7,21 +7,19 @@
 #include <sstream>
 #include <string>
 
-static std::istringstream&	operator>>(std::istringstream&, std::time_t);
-
 Queries
-parse::query(std::ifstream& infile) {
+parse::query_file(std::ifstream& infile) {
 	Queries			queries;
-	std::string		str;
+	std::string		line;
 	
-	std::getline(infile, str);
-	if (str != "date | value")
+	std::getline(infile, line);
+	if (line != "date | value")
 		throw (ParseException("Bad header."));
-	while (std::getline(infile, str)) {
+	while (std::getline(infile, line)) {
 		if (infile.eof() == true)
 			return (queries);
-		Query	line = query_line(str);
-		queries.push_back(line);
+		Query	query = query_line(line);
+		queries.push_back(query);
 	}
 	return (queries);	
 }
@@ -38,19 +36,7 @@ parse::query_line(std::string const& line) {
 		throw (ParseException("Not a positive number."));
 	else if (value >= 1000)
 		throw (ParseException("Too large a number."));
-	if (delim != query_delimiter)
+	if (delim != parse::query_delimiter)
 		throw (ParseException("Bad input => " + line));
 	return (Query(date, value));
-}
-
-#include <iostream>
-
-static std::istringstream&
-operator>>(std::istringstream& iss, std::time_t& time) {
-	std::tm	tm;
-
-	iss >> std::get_time(&tm, "%Y-%m-%d");
-	std::cout << iss.str() << std::endl;
-	time = mktime(tm);
-	return (iss);
 }
