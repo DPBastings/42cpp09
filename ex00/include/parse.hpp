@@ -10,9 +10,6 @@
 # include <string>
 
 namespace parse {
-	constexpr char	query_delimiter[] = " | ";
-	constexpr char	database_delimiter[] = ",";
-
 	class ParseException: public std::invalid_argument {
 	public:
 		ParseException();
@@ -22,10 +19,8 @@ namespace parse {
 		ParseException&	operator=(ParseException const&);
 	};
 
-	Queries			query_file(std::ifstream&);
-	Query			query_line(std::string const&);
-	Database		database_file(std::ifstream&);
-	DatabaseLine	database_line(std::string const&);
+	Database	database(std::ifstream&);
+	Queries		queries(std::ifstream&);
 };
 
 //std::istream&	operator>>(std::istream&, std::time_t);

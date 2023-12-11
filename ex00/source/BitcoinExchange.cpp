@@ -11,7 +11,8 @@ Queries
 open_queries(char const* path) {
 	std::ifstream	infile = open_infile(path);
 	Queries			queries;
-	queries = parse::query_file(infile);
+
+	queries = parse::queries(infile);
 	infile.close();
 	return (queries);
 }
@@ -20,7 +21,8 @@ Database
 open_database(char const* path) {
 	std::ifstream	infile = open_infile(path);
 	Database		db;
-	db = parse::database_file(infile);
+
+	db = parse::database(infile);
 	infile.close();
 	return (db);
 }

@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <iostream>
 #include <string>
+#include <sstream>
 
 static std::time_t	string_to_time(std::string const&);
 

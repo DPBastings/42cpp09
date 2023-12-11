@@ -3,6 +3,8 @@
 
 # include "Date.hpp"
 
+# include <iostream>
+
 class DatabaseLine {
 public:
 	DatabaseLine();
@@ -18,5 +20,8 @@ private:
 	Date	_date;
 	float	_rate;
 };
+
+std::istream&	operator>>(std::istream&, DatabaseLine&);
+std::ostream&	operator<<(std::ostream&, DatabaseLine const&);
 
 #endif // DATABASE_LINE_HPP

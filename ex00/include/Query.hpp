@@ -3,7 +3,7 @@
 
 # include "Date.hpp"
 
-# include <stdexcept>
+# include <iostream>
 # include <string>
 
 class Query {
@@ -19,8 +19,11 @@ public:
 	float	value() const;
 
 private:
-	Date const	_date;
-	float const	_value;
+	Date	_date;
+	float	_value;
 };
+
+std::istream&	operator>>(std::istream&, Query&);
+std::ostream&	operator<<(std::ostream&, Query const&);
 
 #endif // QUERY_HPP

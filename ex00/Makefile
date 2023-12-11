@@ -7,11 +7,12 @@ HDR_DIR		:= ./include/
 SRC_FILES	:= main.cpp\
 			BitcoinExchange.cpp\
 			DatabaseLine.cpp\
+			DatabaseLine_io.cpp\
 			Date.cpp\
 			Query.cpp\
-			parse_database.cpp\
-			parse_exception.cpp\
-			parse_query.cpp
+			Query_io.cpp\
+			parse.cpp\
+			parse_exception.cpp
 
 OBJ_FILES	:= $(patsubst %.cpp,%.o,$(SRC_FILES))
 HDR_FILES	:= BitcoinExchange.hpp\
@@ -20,19 +21,19 @@ HDR_FILES	:= BitcoinExchange.hpp\
 			Query.hpp\
 			parse.hpp
 
-CC			:= g++
-CFLAGS		:= -Wall -Wextra -Werror -I$(HDR_DIR) -g -fsanitize=address
+CXX			:= c++
+CXXFLAGS	+= -std=c++11 -Wall -Wextra -Werror -I$(HDR_DIR) -g -fsanitize=address
 
 .PHONY: all clean fclean re
 
 all: $(NAME)
 
 $(NAME): $(addprefix $(OBJ_DIR),$(OBJ_FILES))
-	@$(CC) $(CFLAGS) $^ -o $@
+	@$(CXX) $(CXXFLAGS) $^ -o $@
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.cpp $(addprefix $(HDR_DIR),$(HDR_FILES))
 	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(CFLAGS) $(DEPFLAGS) -c $< -o $@
+	@$(CXX) $(CXXFLAGS) $(DEPFLAGS) -c $< -o $@
 
 clean:
 	@rm -f $(addprefix $(OBJ_DIR),$(OBJ_FILES))
