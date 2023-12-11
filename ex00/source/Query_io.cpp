@@ -28,6 +28,6 @@ operator>>(std::istream& is, Query& query) {
 
 std::ostream&
 operator<<(std::ostream& os, Query const& query) {
-	os << query.date() << " | " << query.value();
+	os << query.date() << " => " << query.value();
 	return (os);
 }

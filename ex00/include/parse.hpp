@@ -20,7 +20,8 @@ namespace parse {
 	};
 
 	Database	database(std::ifstream&);
-	Queries		queries(std::ifstream&);
+	bool		getquery(std::ifstream&, Query&);
+	void		header(std::ifstream&, char const*);
 };
 
 //std::istream&	operator>>(std::istream&, std::time_t);

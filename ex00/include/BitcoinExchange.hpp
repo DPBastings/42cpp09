@@ -11,9 +11,8 @@ using Database = std::vector<DatabaseLine>;
 
 constexpr char	database_path[] = "./data.csv";
 
-Queries		open_queries(char const* path);
 Database	open_database(char const* path = database_path);
 
-void		process_queries(Queries const&, Database const&);
+void		process_queries(char const*, Database const&);
 
 #endif // BITCOIN_EXCHANGE_HPP
