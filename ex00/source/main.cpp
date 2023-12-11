@@ -13,6 +13,10 @@ main(int argc, char const** argv) {
 	try {
 		Database const	database = open_database();
 		Queries const	queries = open_queries(argv[1]);
+		for (auto const& item: database)
+			std::cout << item << '\n';
+		for (auto const& item: queries)
+			std::cout << item << '\n';
 		
 		process_queries(queries, database);
 	} catch (std::exception& e) {

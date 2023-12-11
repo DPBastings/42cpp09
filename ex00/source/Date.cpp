@@ -1,5 +1,6 @@
 #include "Date.hpp"
 
+#include <cstring>
 #include <ctime>
 #include <iomanip>
 #include <iostream>
@@ -86,8 +87,9 @@ Date::data() const {
 
 std::istream&
 operator>>(std::istream& is, Date& obj) {
-	std::tm		tm;
+	std::tm	tm;
 
+	std::memset(&tm, '\0', sizeof(tm));
 	is >> std::get_time(&tm, "%Y-%m-%d");
 	obj = Date(mktime(&tm));
 	return (is);
@@ -103,8 +105,10 @@ operator<<(std::ostream& os, Date const& obj) {
 
 std::time_t
 string_to_time(std::string const& string) {
-	std::tm				tm;
 	std::istringstream	iss(string);
+	std::tm				tm;
+
+	std::memset(&tm, '\0', sizeof(tm));
 	iss >> std::get_time(&tm, "%Y-%m-%d");
 	return (mktime(&tm));
 }
