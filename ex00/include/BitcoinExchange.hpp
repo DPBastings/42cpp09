@@ -6,7 +6,6 @@
 
 # include <vector>
 
-using Queries = std::vector<Query>;
 using Database = std::vector<DatabaseLine>;
 
 constexpr char	database_path[] = "./data.csv";
