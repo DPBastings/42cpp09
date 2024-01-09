@@ -4,12 +4,8 @@
 # include <iostream>
 # include <string>
 
-class Element:
+class aToken:
 public:
-	enum class Type: int {
-		add, subtract, multiply, divide, number
-	};
-
 	Element();
 	~Element();
 	Element(Element const&);
@@ -25,13 +21,42 @@ public:
 
 	void	operate(int&, Element const&) const;
 	int		operate(Element const&, Element const&) const;
-	Type	type() const;
-	int		value() const;
+}; // class Element
+
+class Operator: public aToken {
+public:
+	using aToken::aToken();
+}; // class Operator
+
+class Addition: public Operator {
+public:
+	using Operator::Operator();
+}; // class Addition
+
+class Subtraction: public Operator {
+public:
+	using Operator::Operator();
+}; // class Subtraction
+
+class Multiplication: public Operator {
+public:
+	using Operator::Operator();
+}; // class Multiplication
+
+class Division: public Operator {
+public:
+	using Operator::Operator();
+}; // class Division
+
+class Integer: public aToken {
+public:
+	Integer(int);
+
+	int	value() const noexcept;
 
 private:
-	Type	_type;
-	int		_value;
-}; // class Element
+	int	_value;
+}; // class Integer
 
 std::istream&	operator>>(std::istream&, Element&);
 std::ostream&	operator<<(std::ostream&, Element const&);
