@@ -6,7 +6,14 @@
 # include <deque>
 # include <istream>
 
-using Expression = std::deque<Token>;
+class Expression: public std::deque<Token*> {
+public:
+	Expression();
+	~Expression();
+	Expression(Expression const&);
+	
+	Expression&	operator=(Expression const&);
+}; // class Expression
 
 bool	rpnexprget(std::istream&, Expression&);
 
