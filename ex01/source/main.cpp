@@ -1,20 +1,29 @@
-#include "rpn.hpp"
+#include "RPN.hpp"
+#include "Token.hpp"
+#include "fwd.hpp"
 
-static bool	argcheck(int);
+#include <cstddef>
+#include <iostream>
+
+static bool	_argcheck(int, char**);
 
 int
 main(int argc, char** argv) {
-	if (argcheck(argc) == false)
-		return (1);
+	if (_argcheck(argc, argv) == false)
+		return (EXIT_FAILURE);
 
-	
-	std::cout << parse_rpn(argv[1]);
+	Expression	expr;
+
+	read_rpn(argv[1], expr);
+	std::cout << expr << '\n';
+	std::cout << expr.eval() << '\n';
+	return (EXIT_SUCCESS);
 }
 
 static bool
-argcheck(int argc) {
+_argcheck(int argc, char**) {
 	if (argc != 2) {
-		std::cerr << "Usage: ./RPN [expression]" << std::endl;
+		std::cerr << "Usage: ./RPN [expression]\n";
 		return (false);
 	}
 	return (true);

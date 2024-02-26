@@ -5,11 +5,16 @@ OBJ_DIR		:= ./object/
 HDR_DIR		:= ./include/
 
 SRC_FILES	:= main.cpp\
-			Token.cpp
+			Expression.cpp\
+			Integer.cpp\
+			Operator.cpp\
+			Token.cpp\
+			RPN.cpp
 
 OBJ_FILES	:= $(patsubst %.cpp,%.o,$(SRC_FILES))
-HDR_FILES	:= rpn.hpp\
-			Token.hpp
+HDR_FILES	:= RPN.hpp\
+			Token.hpp\
+			fwd.hpp
 
 CXX			:= c++
 CXXFLAGS	+= -std=c++11 -Wall -Wextra -Werror -I$(HDR_DIR) -g -fsanitize=address
