@@ -24,9 +24,6 @@ public:
 
 	aToken*	take_back() noexcept;
 	aToken*	take_front() noexcept;
-
-private:
-	void	_eval_recur(Integer&);
 }; // class Expression
 
 std::ostream&	operator<<(std::ostream&, Expression const&);
