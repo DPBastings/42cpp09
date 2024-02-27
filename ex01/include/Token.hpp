@@ -1,5 +1,5 @@
-#ifndef ELEMENT_HPP
-# define ELEMENT_HPP
+#ifndef TOKEN_HPP
+# define TOKEN_HPP
 
 # include "fwd.hpp"
 
@@ -34,9 +34,8 @@ public:
 				operator int() const noexcept;
 				operator std::string() const;
 
-	Integer&	calculate(Integer const& rhs, aToken const* op);
-	int			value() const noexcept;
-	int&		value() noexcept;
+	int		value() const noexcept;
+	int&	value() noexcept;
 
 private:
 	int	_value;
@@ -112,4 +111,4 @@ public:
 	Integer	operate(Integer const&, Integer const&) const noexcept;
 }; // class Division
 
-#endif // ELEMENT_HPP	
+#endif // TOKEN_HPP	

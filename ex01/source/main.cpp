@@ -16,7 +16,12 @@ main(int argc, char** argv) {
 
 	read_rpn(argv[1], expr);
 	std::cout << expr << '\n';
-	std::cout << expr.eval() << '\n';
+	try {
+		std::cout << expr.eval() << '\n';
+	} catch (std::invalid_argument& e) {
+		std::cerr << e.what() << '\n';
+		return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
 

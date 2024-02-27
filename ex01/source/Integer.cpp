@@ -12,8 +12,6 @@ Integer::Integer(char valuec):
 
 Integer::Integer(int value):
 	_value(value) {
-	if (_value < 0 || _value > 9)
-		throw (std::invalid_argument("Invalid operand value"));
 }
 
 // Operators
@@ -36,17 +34,4 @@ Integer::value() const noexcept {
 int&
 Integer::value() noexcept {
 	return (_value);
-}
-
-Integer&
-Integer::calculate(Integer const& that, aToken const* op) {
-	if (dynamic_cast<Addition const*>(op))
-		_value += that._value;
-	else if (dynamic_cast<Subtraction const*>(op))
-		_value -= that._value;
-	else if (dynamic_cast<Multiplication const*>(op))
-		_value *= that._value;
-	else if (dynamic_cast<Division const*>(op))
-		_value /= that._value;
-	return (*this);
 }

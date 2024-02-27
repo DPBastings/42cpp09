@@ -9,12 +9,14 @@ Expression::~Expression() {
 	empty();
 }
 
-Expression::Expression(Expression const& that) {
+Expression::Expression(Expression const& that):
+	std::deque<aToken*>(that) {
 	for (aToken const* token: that)
 		push_as_base(*this, token);
 }
 
-Expression::Expression(Expression&& that) {
+Expression::Expression(Expression&& that):
+	std::deque<aToken*>() {
 	for (auto& token: that) {
 		push_back(token);
 		token = nullptr;
@@ -27,6 +29,7 @@ Expression&
 Expression::operator=(Expression const& that) {
 	if (this == &that)
 		return (*this);
+	std::deque<aToken*>::operator=(that);
 	empty();
 	for (auto const& token: that)
 		push_as_base(*this, token);
@@ -37,6 +40,7 @@ Expression&
 Expression::operator=(Expression&& that) {
 	if (this == &that)
 		return (*this);
+	std::deque<aToken*>::operator=(that);
 	empty();
 	for (auto& token: that) {
 		push_back(token);
@@ -63,15 +67,27 @@ Expression::empty() noexcept {
 	clear();
 }
 
-Integer
-Expression::eval() const noexcept {
-	Integer	res = dynamic_cast<Integer const&>(*front());
+aToken*
+Expression::take_back() noexcept {
+	if (size() == 0)
+		return (nullptr);
 
-	for (Expression::const_iterator it = begin() + 1; it < end(); it += 2) {
-		res.calculate(dynamic_cast<Integer const&>(**it), *(it + 1));
-	}
-	return (res);
+	aToken*	obj = back();
+
+	pop_back();
+	return (obj);
 }
+
+aToken*
+Expression::take_front() noexcept {
+	if (size() == 0)
+		return (nullptr);
+
+	aToken*	obj = front();
+
+	pop_front();
+	return (obj);
+}	
 
 // Non-member functions
 

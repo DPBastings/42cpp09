@@ -6,6 +6,8 @@ HDR_DIR		:= ./include/
 
 SRC_FILES	:= main.cpp\
 			Expression.cpp\
+			Expression_eval.cpp\
+			Expression_except.cpp\
 			Integer.cpp\
 			Operator.cpp\
 			Token.cpp\
