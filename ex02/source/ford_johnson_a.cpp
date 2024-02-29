@@ -1,25 +1,10 @@
 #include "PMM.hpp"
 
-static void	_ford_johnson_sort(CtrA&);
 static void	_fj_split(CtrA const&, size_t, CtrA&, CtrA&);
 static void	_fj_merge(CtrA&, CtrA const&, CtrA const&);
 
-clock_t	ford_johnson(CtrA& ctr) {
-	clock_t const	start = clock();
-
-	if (start == -1)
-		throw (PMMException("couldn't determine time"));
-	_ford_johnson_sort(ctr);
-
-	clock_t const	end = clock();
-
-	if (end == -1)
-		throw (PMMException("couldn't determine time"));
-	return (end - start);
-}
-
-static void
-_ford_johnson_sort(CtrA& ctr) {
+void
+ford_johnson_sort(CtrA& ctr) {
 	size_t const	size = std::distance(ctr.begin(), ctr.end());
 	CtrA			left;
 	CtrA			right;
@@ -27,8 +12,8 @@ _ford_johnson_sort(CtrA& ctr) {
 	if (size < 2)
 		return;
 	_fj_split(ctr, size, left, right);
-	_ford_johnson_sort(left);
-	_ford_johnson_sort(right);
+	ford_johnson_sort(left);
+	ford_johnson_sort(right);
 	_fj_merge(ctr, left, right);
 }
 

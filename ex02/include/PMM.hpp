@@ -7,8 +7,8 @@
 # include <list>
 # include <stdexcept>
 
-using CtrA = std::forward_list<unsigned>;
-using CtrB = std::list<unsigned>;
+using CtrA = std::forward_list<unsigned long>;
+using CtrB = std::list<unsigned long>;
 
 template<typename CTR>
 void	ctr_print(CTR const&, std::ostream& os);
@@ -25,8 +25,11 @@ public:
 	PMMException&	operator=(PMMException&&) = default;
 }; // class PMMException
 
-clock_t	ford_johnson(CtrA&);
-clock_t	ford_johnson(CtrB&);
+template<typename CTR>
+clock_t	ford_johnson(CTR&);
+
+void	ford_johnson_sort(CtrA&);
+void	ford_johnson_sort(CtrB&);
 
 # include "PMM.tpp"
 
