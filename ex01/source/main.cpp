@@ -15,7 +15,7 @@ main(int argc, char** argv) {
 	Expression	expr;
 
 	read_rpn(argv[1], expr);
-	std::cout << expr << '\n';
+	// std::cout << expr << '\n';
 	try {
 		std::cout << expr.eval() << '\n';
 	} catch (std::invalid_argument& e) {
