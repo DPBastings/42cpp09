@@ -1,8 +1,6 @@
 #include "Expression.hpp"
 #include "Token.hpp"
 
-#include <iterator>
-
 static void	push_as_base(Expression&, aToken const*);
 
 // Constructors

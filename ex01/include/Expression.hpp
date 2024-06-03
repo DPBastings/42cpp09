@@ -5,7 +5,6 @@
 
 # include <forward_list>
 # include <iostream>
-# include <iterator>
 # include <stdexcept>
 
 class Expression: public std::forward_list<aToken*> {
