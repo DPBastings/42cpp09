@@ -7,7 +7,8 @@ HDR_DIR		:= ./include/
 SRC_FILES	:= main.cpp\
 			ford_johnson_a.cpp\
 			ford_johnson_b.cpp\
-			PMMException.cpp
+			PMMException.cpp\
+			utils.cpp
 
 OBJ_FILES	:= $(patsubst %.cpp,%.o,$(SRC_FILES))
 HDR_FILES	:= PMM.hpp
