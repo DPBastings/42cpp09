@@ -22,8 +22,9 @@ read_rpn(std::istream& is, Expression& expr) {
 		is >> c;
 		if (is.eof())
 			break;
-		expr.push_back(_char_to_token(c));
+		expr.push_front(_char_to_token(c));
 	}
+	expr.reverse();
 }
 
 static aToken*	_char_to_token(char c) {

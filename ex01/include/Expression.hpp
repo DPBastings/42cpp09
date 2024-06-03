@@ -3,11 +3,12 @@
 
 # include "fwd.hpp"
 
-# include <deque>
+# include <forward_list>
 # include <iostream>
+# include <iterator>
 # include <stdexcept>
 
-class Expression: public std::deque<aToken*> {
+class Expression: public std::forward_list<aToken*> {
 public:
 	class FormException;
 
@@ -18,6 +19,8 @@ public:
 	
 	Expression&	operator=(Expression const&);
 	Expression&	operator=(Expression&&);
+
+	size_t	size() const noexcept;
 
 	void	empty() noexcept;
 	Integer	eval();

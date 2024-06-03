@@ -1,7 +1,7 @@
 #include "Expression.hpp"
 #include "Token.hpp"
 
-using Stack = std::deque<Integer>;
+using Stack = std::forward_list<Integer>;
 
 static Integer	_process_integer(aToken*);
 static Integer	_process_operator(Stack&, Operator*);
@@ -17,7 +17,7 @@ Expression::eval() {
 		else
 			stack.push_front(_process_operator(stack, static_cast<Operator*>(take_front())));
 	}
-	if (stack.size() != 1)
+	if (std::distance(stack.begin(), stack.end()) != 1)
 		throw (FormException());
 	return (stack.front());
 }
@@ -56,7 +56,7 @@ _process_operator(Stack& stack, Operator* op) {
 
 static void
 _get_operands(Stack& stack, Integer& a, Integer& b) {
-	if (stack.size() < 2)
+	if (std::distance(stack.begin(), stack.end()) < 2)
 		throw (Expression::FormException());
 	b = stack.front();
 	stack.pop_front();

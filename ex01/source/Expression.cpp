@@ -1,6 +1,8 @@
 #include "Expression.hpp"
 #include "Token.hpp"
 
+#include <iterator>
+
 static void	push_as_base(Expression&, aToken const*);
 
 // Constructors
@@ -10,17 +12,19 @@ Expression::~Expression() {
 }
 
 Expression::Expression(Expression const& that):
-	std::deque<aToken*>(that) {
+	std::forward_list<aToken*>(that) {
 	for (aToken const* token: that)
 		push_as_base(*this, token);
+	reverse();
 }
 
 Expression::Expression(Expression&& that):
-	std::deque<aToken*>() {
+	std::forward_list<aToken*>() {
 	for (auto& token: that) {
-		push_back(token);
+		push_front(token);
 		token = nullptr;
 	}
+	reverse();
 }
 
 // Operators
@@ -29,7 +33,7 @@ Expression&
 Expression::operator=(Expression const& that) {
 	if (this == &that)
 		return (*this);
-	std::deque<aToken*>::operator=(that);
+	std::forward_list<aToken*>::operator=(that);
 	empty();
 	for (auto const& token: that)
 		push_as_base(*this, token);
@@ -40,10 +44,10 @@ Expression&
 Expression::operator=(Expression&& that) {
 	if (this == &that)
 		return (*this);
-	std::deque<aToken*>::operator=(that);
+	std::forward_list<aToken*>::operator=(that);
 	empty();
 	for (auto& token: that) {
-		push_back(token);
+		push_front(token);
 		token = nullptr;
 	}
 	return (*this);
@@ -67,6 +71,7 @@ Expression::empty() noexcept {
 	clear();
 }
 
+/*
 aToken*
 Expression::take_back() noexcept {
 	if (size() == 0)
@@ -77,7 +82,7 @@ Expression::take_back() noexcept {
 	pop_back();
 	return (obj);
 }
-
+*/
 aToken*
 Expression::take_front() noexcept {
 	if (size() == 0)
@@ -88,6 +93,11 @@ Expression::take_front() noexcept {
 	pop_front();
 	return (obj);
 }	
+
+size_t
+Expression::size() const noexcept {
+	return (std::distance(begin(), end()));
+}
 
 // Non-member functions
 
@@ -102,13 +112,13 @@ operator<<(std::ostream& os, Expression const& obj) {
 static void
 push_as_base(Expression& expr, aToken const* token) {
 	if (dynamic_cast<Integer const*>(token))
-		expr.push_back(new Integer(*(static_cast<Integer const*>(token))));
+		expr.push_front(new Integer(*(static_cast<Integer const*>(token))));
 	else if (dynamic_cast<Addition const*>(token))
-		expr.push_back(new Addition(*(static_cast<Addition const*>(token))));
+		expr.push_front(new Addition(*(static_cast<Addition const*>(token))));
 	else if (dynamic_cast<Subtraction const*>(token))
-		expr.push_back(new Subtraction(*(static_cast<Subtraction const*>(token))));
+		expr.push_front(new Subtraction(*(static_cast<Subtraction const*>(token))));
 	else if (dynamic_cast<Multiplication const*>(token))
-		expr.push_back(new Multiplication(*(static_cast<Multiplication const*>(token))));
+		expr.push_front(new Multiplication(*(static_cast<Multiplication const*>(token))));
 	else if (dynamic_cast<Division const*>(token))
-		expr.push_back(new Division(*(static_cast<Division const*>(token))));
+		expr.push_front(new Division(*(static_cast<Division const*>(token))));
 }
