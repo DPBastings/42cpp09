@@ -1,6 +1,7 @@
 #include "PMM.hpp"
 
 #include <iterator>
+#include <iostream>
 
 static PairCtrA	_fj_get_pairs(CtrA const&, CtrA&);
 static void		_fj_merge_sort_pairs(PairCtrA&);
@@ -75,7 +76,7 @@ _fj_merge(PairCtrA& ctr, PairCtrA const& left, PairCtrA const& right) {
 
 	ctr.clear();
 	while (itl != left.end() && itr != right.end()) {
-		if (itl->second > itr->second)
+		if (itl->first > itr->first)
 			ctr.push_back(*(itl++));
 		else
 			ctr.push_back(*(itr++));
@@ -98,23 +99,23 @@ static void
 _fj_insert(CtrA& main, CtrA const& pend) {
 	main.push_front(pend.front());	// First pending element can always go at the front.
 
-	size_t	ct = 1;		// Number of elements that have been inserted.
+	size_t	n_inserted = 1;
 	size_t	i = 0;		// Index of pend that is currently accessed.
 	size_t	jcth_i = 1;	// Index of the current Jacobsthal number.
 
 	while (true) {
-		size_t const	fwd = 2 * jacobsthal(jcth_i);
-		size_t const	left_bound = i + fwd; // Elements of pend will be read right-to-left until this index.
-		if (left_bound > pend.size()) // Jacobsthal capacity exceeds the number of pending elements.
+		std::cout << '!' << std::flush;
+		size_t const	fwd = 2 * jacobsthal(jcth_i++);
+		size_t const	left_bound = i; // Elements of pend will be read right-to-left until this index.
+		if (left_bound + fwd >= pend.size()) // Jacobsthal capacity exceeds the number of pending elements.
 			break;
-		i += fwd;
+		i = left_bound + fwd;
 		while (i > left_bound) {
-			_fj_bin_insert(main, 0, i + ct - 1, pend[i]);
-			++ct;
+			_fj_bin_insert(main, 0, i + n_inserted - 1, pend[i]);
+			++n_inserted;
 			--i;
 		}
 		i += fwd;
-		++jcth_i;
 	}
 
 	size_t const	left_bound = i;
@@ -128,7 +129,7 @@ _fj_insert(CtrA& main, CtrA const& pend) {
 
 static void
 _fj_bin_insert(CtrA& main, size_t start, size_t end, unsigned long num) {
-	auto 	startit = std::next(main.begin(), start - 1);
+	auto 	startit = std::next(main.begin(), start);
 
 	if (start == end) {
 		if (*startit > num)
@@ -138,9 +139,8 @@ _fj_bin_insert(CtrA& main, size_t start, size_t end, unsigned long num) {
 		return;
 	}
 	size_t	middle = (start + end) / 2;
-	auto	middleit = std::next(main.begin(), middle);
 	
-	if (*middleit > num)
+	if (main[middle] > num)
 		_fj_bin_insert(main, start, middle, num);
 	else
 		_fj_bin_insert(main, middle + 1, end, num);
