@@ -18,10 +18,6 @@ ford_johnson_sort(CtrA& ctr) {
 
 	_fj_merge_sort_pairs(pairs);
 	_fj_unpair(main, pend, pairs);
-	ctr_print(main, std::cout);
-	std::cout << '\n';
-	ctr_print(pend, std::cout);
-	std::cout << '\n';
 	_fj_insert(main, pend);
 	ctr = std::move(main);
 }

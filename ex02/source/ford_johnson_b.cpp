@@ -1,7 +1,6 @@
 #include "PMM.hpp"
 
 #include <iterator>
-#include <iostream>
 
 static PairCtrA	_fj_get_pairs(CtrB const&, CtrB&);
 static void		_fj_merge_sort_pairs(PairCtrA&);
@@ -19,10 +18,6 @@ ford_johnson_sort(CtrB& ctr) {
 
 	_fj_merge_sort_pairs(pairs);
 	_fj_unpair(main, pend, pairs);
-	ctr_print(main, std::cout);
-	std::cout << '\n';
-	ctr_print(pend, std::cout);
-	std::cout << '\n';
 	_fj_insert(main, pend);
 	ctr = std::move(main);
 }
@@ -104,7 +99,6 @@ _fj_insert(CtrB& main, CtrB const& pend) {
 	size_t	jcth_i = 1;	// Index of the current Jacobsthal number.
 
 	while (true) {
-		std::cout << '!' << std::flush;
 		size_t const	fwd = 2 * jacobsthal(jcth_i++);
 		size_t const	left_bound = i; // Elements of pend will be read right-to-left until this index.
 		if (left_bound + fwd >= pend.size()) // Jacobsthal capacity exceeds the number of pending elements.

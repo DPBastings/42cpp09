@@ -6,11 +6,24 @@
 
 static void	_parse_args(CtrA&, CtrB&, int, char**);
 static void	_sort(CtrA&, CtrB&);
+
 template<typename CTR>
 static void	_ctr_print_line(CTR const& ctr, char const* header) {
 	std::cout << header;
 	ctr_print(ctr, std::cout);
 	std::cout << '\n';
+}
+
+template<typename CTR>
+static bool _ctr_is_sorted(CTR const& ctr) {
+	unsigned long	prev = *ctr.begin();
+
+	for (unsigned long const& num: ctr) {
+		if (num < prev)
+			return (false);
+		prev = num;
+	}
+	return (true);
 }
 
 int
@@ -50,8 +63,11 @@ _sort(CtrA& a, CtrB& b) {
 	clock_t const	ta = ford_johnson(a);
 	clock_t const	tb = ford_johnson(b);
 
-	_ctr_print_line(a, "After (std::deque): ");
-	_ctr_print_line(b, "After (std::list):  ");
+	if (!_ctr_is_sorted(a))
+		std::cerr << "std::deque was not successfully sorted!\n";
+	if (!_ctr_is_sorted(b))
+		std::cerr << "std::list was not successfully sorted!\n";
+	_ctr_print_line(a, "After: ");
 	std::cout << "std::deque of length "
 		<< std::to_string(a.size())
 		<< " was sorted in " << std::to_string(ta) << " μs.\n"
