@@ -1,4 +1,5 @@
 #include "Date.hpp"
+#include "parse.hpp"
 
 #include <cstring>
 #include <ctime>
@@ -110,5 +111,7 @@ string_to_time(std::string const& string) {
 
 	std::memset(&tm, '\0', sizeof(tm));
 	iss >> std::get_time(&tm, "%Y-%m-%d");
+	if (iss.fail())
+		throw (parse::ParseException("incorrect date format"));
 	return (mktime(&tm));
 }

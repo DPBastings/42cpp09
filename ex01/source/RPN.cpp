@@ -29,15 +29,17 @@ read_rpn(std::istream& is, Expression& expr) {
 
 static aToken*	_char_to_token(char c) {
 	switch (c) {
-		case '+':
-			return (new Addition);
-		case '-':
-			return (new Subtraction);
-		case '*':
-			return (new Multiplication);
-		case '/':
-			return (new Division);
-		default:
+	case '+':
+		return (new Addition);
+	case '-':
+		return (new Subtraction);
+	case '*':
+		return (new Multiplication);
+	case '/':
+		return (new Division);
+	default:
+		if (std::isdigit(c))
 			return (new Integer(c - '0'));
+		throw (std::invalid_argument("Invalid operator"));
 	}
 }

@@ -32,6 +32,8 @@ main(int argc, char** argv) {
 	CtrB	b;
 
 	try {
+		if (argc < 3)
+			throw (std::logic_error("at least two elements are required"));
 		_parse_args(a, b, argc - 1, argv + 1);
 		_sort(a, b);
 	} catch (std::logic_error& e) {

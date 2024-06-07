@@ -15,6 +15,9 @@ operator>>(std::istream& is, Query& query) {
 		if (segments[i].length() == 0)
 			throw (ParseException(""));
 	}
+	if (!is.eof())
+		throw (ParseException("extraneous characters"));
+
 	Date	date(segments[0]);
 	float	value = std::stof(segments[1]);
 
