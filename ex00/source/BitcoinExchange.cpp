@@ -12,11 +12,8 @@ static DatabaseLine const&	find_closest_date(Date const&, Database const&);
 Database
 open_database(char const* path) {
 	std::ifstream	infile = open_infile(path);
-	Database		db;
 
-	db = parse::database(infile);
-	infile.close();
-	return (db);
+	return (parse::database(infile));
 }
 
 static std::ifstream
